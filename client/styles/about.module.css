@@ -1,0 +1,74 @@
+.LandingPageContextView {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbarLP {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 80px;
+  padding: 10px 0;
+  background-color: #252525;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.NavigatorContainer {
+  padding: 10px 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#NavigatorContainer1 {
+  padding: 10px 0%;
+}
+
+#NavigatorContainer2 {
+  padding: 10px 0%;
+}
+
+#NavigatorContainer1 {
+  padding: 10px 0%;
+}
+
+.TitleOverview {
+  flex: 1;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 0.3%;
+}
+
+.TitleOverviewWords {
+  font-weight: bolder;
+  font-size: 80px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: wavy;
+  display: flex;
+  width: 90%;
+  padding: 0px 3%;
+  letter-spacing: 1px;
+  font-family: cursive;
+  margin-right: auto;
+}
+
+.FunctionsSection {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 0.3%;
+}
