@@ -1,4 +1,5 @@
 import { UserModel } from "../Models/userModel.js";
+import { PodcastSchema } from "./Schema.js";
 
 export const GetMyTopArtists = async (artists) => {
   const response = await UserModel.find({
@@ -14,3 +15,10 @@ export const GetMyTopArtists = async (artists) => {
 
   return response;
 };
+
+export const GetPodcastData = async(podcasts) => {
+    const response = await PodcastSchema.find({_id: {
+        $in: podcasts
+    }});
+    return response;
+}

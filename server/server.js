@@ -13,6 +13,7 @@ import LoginRoute from './Router/login-router.js';
 import SignupRoute from './Router/signup-router.js';
 
 import checkAuthorizationRouter from './Router/checkAuthorization.js';
+import { MainSchema } from "./GraphQL/mainQL.js";
 
 dotenv.config();
 const app = express();
@@ -37,7 +38,7 @@ app.use(
   "/graphql",
   ExpressGraphQL({
     graphiql: true,
-    schema: "",
+    schema: MainSchema,
     // prevention from circular query
     validationRules: [depthLimit(2)]
   })

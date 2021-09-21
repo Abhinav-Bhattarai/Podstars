@@ -13,11 +13,11 @@ const UserSchema = new GraphQLObjectType({
   fields: () => {
     return {
       _id: { type: GraphQLID },
-      
+
       Username: { type: GraphQLString },
-      
+
       Email: { type: GraphQLString },
-      
+
       Profile: { type: GraphQLString },
 
       TopArtistsList: {
@@ -54,23 +54,6 @@ export const PodcastSchema = new GraphQLObjectType({
       HostID: { type: GraphQLString },
 
       Playbacks: { type: GraphQLInt },
-    };
-  },
-});
-
-export const TrendingSchema = new GraphQLObjectType({
-  name: "TrendingSchema",
-  fields: () => {
-    return {
-      PodcastID: { type: GraphQLID },
-      
-      PodcastData: {
-        type: PodcastSchema,
-        resolve: (parent) => {
-          const { PodcastID } = parent;
-          const PodcastData = await GetPodcastData(PodcastID);
-        },
-      },
     };
   },
 });

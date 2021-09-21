@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const Schema = new mongoose.Schema({
-  PodcastID: {
-    type: String,
-    required: true,
+  Podcasts: {
+    type: [String],
+    default: [],
   },
 });
 
