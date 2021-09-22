@@ -14,7 +14,7 @@ const Home: NextPage<NextPageProps> = ({ authStatus }) => {
       router.replace("/m");
       return;
     }
-    router.replace("/l/signup");
+    router.replace("/home");
   }, [router, authStatus]);
 
   return <LoadingPage />;
