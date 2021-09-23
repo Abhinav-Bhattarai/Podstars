@@ -6,3 +6,37 @@
   height: 100%;
   width: 80%;
 }
+
+.profileHolder {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0%;
+  border-radius: 5px;
+  background-color: #282828;
+  min-width: 20%;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.profileHolder:hover {
+  background-color: #444444;
+}
+
+#MainViewHeaderContainer {
+  width: 100%;
+  padding: 20px 4%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#ProfileName {
+  font-size: 16px;
+  color: #fefefe;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-left: 3%;
+  flex: 3;
+  white-space: nowrap;
+}

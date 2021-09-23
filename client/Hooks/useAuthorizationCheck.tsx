@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { StorageType } from "../Interfaces/interface";
 
 interface AuthorizationDataType {
   error: boolean;
   authStatus: boolean;
 }
 
-const GetPersistantData = (): object | null => {
+export const GetPersistantData = (): StorageType | null => {
   const userID = localStorage.getItem("userID");
   const userName = localStorage.getItem("userName");
   if (userID && userName) {
@@ -34,11 +35,10 @@ const useAuthorizationCheck = () => {
           setAuthStatus(data.authStatus);
         }
       }
-    };
-    setTimeout(() => {
       setAuthStatus(false);
-    }, 1000);
-    // CheckAuthorization();
+    };
+    
+    CheckAuthorization();
   });
 
   return auth_status;

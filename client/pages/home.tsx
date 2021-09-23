@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import React, { useState } from "react";
-import MainContainer from "../Components/MainContainer/main-container";
+import MainContainer, {
+  MainViewHeader,
+} from "../Components/MainContainer/main-container";
 import SidebarContainer, {
   SidebarHeader,
   NavigatorContainer,
@@ -12,7 +14,10 @@ import {
   GetLivePodcasts,
   GetTrendingPodcasts,
 } from "../GraphQL/query";
+import UserDefaultImage from '../assets/user.svg';
 import { AiFillHome, AiOutlineSearch, AiFillHeart } from "react-icons/ai";
+import { PageProps, Podstars } from "../Interfaces/interface";
+import SkeletonCard from "../Components/UI/skeleton-card";
 
 interface Podcasts {
   name: string;
@@ -20,12 +25,7 @@ interface Podcasts {
   photo: string;
 }
 
-interface Podstars {
-  photo: string;
-  name: string;
-}
-
-const Home: NextPage<{ authStatus: boolean }> = ({ authStatus }) => {
+const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
   const [trending, setTrending] = useState<null | Array<Podcasts>>(null);
   const [live, setLive] = useState<null | Array<Podcasts>>(null);
   const [topStars, setTopStars] = useState<null | Array<Podstars>>(null);
@@ -37,23 +37,30 @@ const Home: NextPage<{ authStatus: boolean }> = ({ authStatus }) => {
     <React.Fragment>
       <SidebarContainer>
         <SidebarHeader name="Podstars" />
+
         <NavigatorContainer name="Home">
           <IconContainer>
             <AiFillHome />
           </IconContainer>
         </NavigatorContainer>
+
         <NavigatorContainer name="Search">
           <IconContainer>
             <AiOutlineSearch />
           </IconContainer>
         </NavigatorContainer>
+
         <NavigatorContainer name="Liked Podcasts">
-            <IconContainer>
-                <AiFillHeart/>
-            </IconContainer>
+          <IconContainer>
+            <AiFillHeart />
+          </IconContainer>
         </NavigatorContainer>
       </SidebarContainer>
-      <MainContainer></MainContainer>
+
+      <MainContainer>
+        <MainViewHeader name={ storage ? storage.userName : 'Abhinav Bhattarai' } />
+        <SkeletonCard/>
+      </MainContainer>
     </React.Fragment>
   );
 };
