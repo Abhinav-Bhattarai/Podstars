@@ -1,8 +1,7 @@
 #SkeletonCardContainer {
-  width: 20%;
   border-radius: 5px;
   background-color: #181818;
-  height: 300px;
+  height: 252px;
   display: flex;
   align-items: center;
   flex-direction: column;

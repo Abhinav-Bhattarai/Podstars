@@ -30,6 +30,32 @@ export const MainViewHeader: React.FC<{ source?: string; name: string }> = (
   );
 };
 
+export const CardContainerNameType: React.FC<{ name: string }> = ({ name }) => {
+  return (
+    <main id={styles.CardContainerNameType}>
+      <div
+        style={{
+          marginLeft: "1.5%",
+        }}
+      >
+        {name}
+      </div>
+    </main>
+  );
+};
+
+export const CardContainer: React.FC<{}> = ({ children }) => {
+  return <main id={styles.CardContainer}>{children}</main>;
+};
+
+export const ScrollView: React.FC<{}> = ({ children }) => {
+  return (
+    <div className={styles.MainScrollView}>
+      { children }
+    </div>
+  )
+}
+
 const MainContainer: React.FC<{}> = ({ children }) => {
   return <div className={styles.MainContainer}>{children}</div>;
 };

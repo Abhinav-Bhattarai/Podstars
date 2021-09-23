@@ -40,3 +40,41 @@
   flex: 3;
   white-space: nowrap;
 }
+
+#CardContainer {
+  display: grid;
+  grid-template-columns: 16% 16% 16% 16% 16% 16%;
+  padding: 3px 1.5%;
+  /* grid-gap: 1%; */
+  overflow: hidden;
+  height: 255px;
+  width: 100%;
+  justify-content: center;
+}
+
+#CardContainerNameType {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: bold;
+  font-size: 24px;
+  color: #cacaca;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.MainScrollView {
+  height: 87%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.MainScrollView::-webkit-scrollbar {
+  width: 2.1231px; /* width of the entire scrollbar */
+}
+
+.MainScrollView::-webkit-scrollbar-thumb {
+  background-color: #333; /* color of the scroll thumb */
+  border-radius: 8px; /* roundness of the scroll thumb */
+}

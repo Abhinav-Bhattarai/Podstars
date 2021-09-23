@@ -1,8 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import MainContainer, {
+  CardContainer,
+  CardContainerNameType,
   MainViewHeader,
+  ScrollView,
 } from "../Components/MainContainer/main-container";
 import SidebarContainer, {
   SidebarHeader,
@@ -14,7 +17,7 @@ import {
   GetLivePodcasts,
   GetTrendingPodcasts,
 } from "../GraphQL/query";
-import UserDefaultImage from '../assets/user.svg';
+import UserDefaultImage from "../assets/user.svg";
 import { AiFillHome, AiOutlineSearch, AiFillHeart } from "react-icons/ai";
 import { PageProps, Podstars } from "../Interfaces/interface";
 import SkeletonCard from "../Components/UI/skeleton-card";
@@ -25,13 +28,40 @@ interface Podcasts {
   photo: string;
 }
 
+const GetSkeletonCards = () => {
+  const CardContainer = [];
+  for (let i = 0; i < 10; i++) {
+    CardContainer.push(<SkeletonCard />);
+  }
+  return CardContainer;
+};
+
 const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
   const [trending, setTrending] = useState<null | Array<Podcasts>>(null);
   const [live, setLive] = useState<null | Array<Podcasts>>(null);
-  const [topStars, setTopStars] = useState<null | Array<Podstars>>(null);
+  const [favoraites, setFavoraites] = useState<null | Array<Podstars>>(null);
   //   const Trending = useQuery(GetTrendingPodcasts);
   //   const LivePodcasts = useQuery(GetLivePodcasts);
   //   const Favoraites = useQuery(GetFavoraites);
+
+  const TrendingCards = useMemo(() => {
+    if (trending) {
+      // mapping
+    }
+    return GetSkeletonCards();
+  }, [trending]);
+
+  const LiveCards = useMemo(() => {
+    if (live) {
+    }
+    return GetSkeletonCards();
+  }, [live]);
+
+  const FavoraitesCard = useMemo(() => {
+    if (favoraites) {
+    }
+    return GetSkeletonCards();
+  }, [favoraites]);
 
   return (
     <React.Fragment>
@@ -58,8 +88,19 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
       </SidebarContainer>
 
       <MainContainer>
-        <MainViewHeader name={ storage ? storage.userName : 'Abhinav Bhattarai' } />
-        <SkeletonCard/>
+        <MainViewHeader
+          name={storage ? storage.userName : "Abhinav Bhattarai"}
+        />
+        <ScrollView>
+          <CardContainerNameType name="Currently Trending" />
+          <CardContainer>{TrendingCards}</CardContainer>
+
+          <CardContainerNameType name="Top Live Podcasts" />
+          <CardContainer>{LiveCards}</CardContainer>
+
+          <CardContainerNameType name="Your Favoraites" />
+          <CardContainer>{FavoraitesCard}</CardContainer>
+        </ScrollView>
       </MainContainer>
     </React.Fragment>
   );
