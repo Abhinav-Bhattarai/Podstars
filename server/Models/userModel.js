@@ -33,7 +33,7 @@ const Schema = new mongoose.Schema({
     default: Math.floor(Math.random() * 10000000000),
   },
 
-  TopArtists: {
+  Favoraites: {
     type: [String],
     default: [],
   },

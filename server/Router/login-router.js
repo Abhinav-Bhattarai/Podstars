@@ -1,4 +1,4 @@
-import express from "express";
+import express, { application } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { LoginMiddleware } from "../Middleware/LoginMiddleware.js";

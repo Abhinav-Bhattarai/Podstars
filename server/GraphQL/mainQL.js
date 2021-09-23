@@ -19,6 +19,7 @@ const RootQuery = new GraphQLObjectType({
     GetTopLivePodcasts: {
         type: new GraphQLList(PodcastSchema),
         resolve: async () => {
+          
         }
     }
   },
