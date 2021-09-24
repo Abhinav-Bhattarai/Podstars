@@ -1,5 +1,6 @@
 import React from "react";
 import { IconContext } from "react-icons";
+import Link from "next/link";
 import styles from "../../styles/sidebar.module.css";
 
 export const IconContainer: React.FC<{}> = ({ children }) => {
@@ -9,7 +10,7 @@ export const IconContainer: React.FC<{}> = ({ children }) => {
         style: {
           fontSize: "26px",
           color: "#fefefe",
-          marginLeft: '10%'
+          marginLeft: "10%",
         },
       }}
     >
@@ -23,10 +24,12 @@ export const NavigatorContainer: React.FC<{ name: string }> = ({
   children,
 }) => {
   return (
-    <nav className={styles.NavigatorContainer}>
-      {children}
-      <div id={styles.NavigatorName}>{name}</div>
-    </nav>
+    <Link href={`/${name.toLocaleLowerCase()}`} passHref={true}>
+      <nav className={styles.NavigatorContainer}>
+        {children}
+        <div id={styles.NavigatorName}>{name}</div>
+      </nav>
+    </Link>
   );
 };
 

@@ -11,8 +11,9 @@ export const GetPersistantData = (): StorageType | null => {
   const userID = localStorage.getItem("userID");
   const userName = localStorage.getItem("userName");
   const authToken = localStorage.getItem('authToken');
-  if (userID && userName && authToken) {
-    const config = { userID, userName, authToken };
+  const uid = localStorage.getItem('uid');
+  if (userID && userName && authToken && uid) {
+    const config = { userID, userName, authToken, uid };
     return config;
   }
   return null;

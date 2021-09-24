@@ -17,7 +17,6 @@ import {
   GetFavoraitePodcasts,
   GetTrendingPodcasts,
 } from "../GraphQL/query";
-import UserDefaultImage from "../assets/user.svg";
 import { AiFillHome, AiOutlineSearch, AiFillHeart } from "react-icons/ai";
 import { PageProps, Podstars } from "../Interfaces/interface";
 import SkeletonCard from "../Components/UI/skeleton-card";
@@ -37,32 +36,31 @@ const GetSkeletonCards = () => {
 };
 
 const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
-  console.log(storage);
   const [trending, setTrending] = useState<null | Array<Podcasts>>(null);
   const [favoraiteArtists, setfavoraiteArtists] = useState<null | Array<Podstars>>(null);
   const [favoraitePodcasts, setFavoraitePodcasts] = useState<null | Array<Podcasts>>(null);
-  // const TrendingQuery = useQuery(GetTrendingPodcasts);
-  // const favoraiteArtistsQuery = useQuery(GetFavoraiteArtists, {
-  //   variables: {
-  //     userID: storage?.userID,
-  //     authToken: '',
-  //     userName: storage?.userName
-  //   },
+  const TrendingQuery = useQuery(GetTrendingPodcasts);
+  const favoraiteArtistsQuery = useQuery(GetFavoraiteArtists, {
+    variables: {
+      userID: storage?.userID,
+      authToken: storage?.authToken,
+      uid: storage?.uid
+    },
 
-  //   onCompleted: () => {
+    onCompleted: () => {
 
-  //   }
-  // });
-  // const favoraitePodcastsQuery = useQuery(GetFavoraitePodcasts, {
-  //   variables: {
-  //     userID: storage?.userID,
-  //     authToken: '',
-  //     userName: storage?.userName
-  //   },
-  //   onCompleted: () => {
+    }
+  });
+  const favoraitePodcastsQuery = useQuery(GetFavoraitePodcasts, {
+    variables: {
+      userID: storage?.userID,
+      authToken: storage?.authToken,
+      uid: storage?.uid
+    },
+    onCompleted: () => {
 
-  //   }
-  // });
+    }
+  });
 
   const TrendingCards = useMemo(() => {
     if (trending) {
@@ -70,12 +68,6 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
     }
     return GetSkeletonCards();
   }, [trending]);
-
-  // const LiveCards = useMemo(() => {
-  //   if (live) {
-  //   }
-  //   return GetSkeletonCards();
-  // }, [live]);
 
   const favoraiteArtistsCard = useMemo(() => {
     if (favoraiteArtists) {

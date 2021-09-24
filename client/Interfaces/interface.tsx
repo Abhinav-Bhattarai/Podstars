@@ -7,6 +7,7 @@ export interface StorageType {
   userID: string;
   userName: string;
   authToken: string;
+  uid: string;
 }
 export interface PageProps {
   authStatus: boolean;
