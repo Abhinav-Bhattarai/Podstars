@@ -5,7 +5,9 @@ __This webapp is all about podcasts with great UI__ <br/>
 ## install server dependencies
 > cd server
 ```
- npm install
+ <div class="bg-blue-light mb-2">
+  npm install
+  </div>npm install
 ```
 
 ## install client dependencies
