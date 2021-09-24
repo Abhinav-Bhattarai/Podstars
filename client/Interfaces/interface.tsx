@@ -6,6 +6,7 @@ export interface Podstars {
 export interface StorageType {
   userID: string;
   userName: string;
+  authToken: string;
 }
 export interface PageProps {
   authStatus: boolean;

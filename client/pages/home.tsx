@@ -12,11 +12,11 @@ import SidebarContainer, {
   NavigatorContainer,
   IconContainer,
 } from "../Components/Sidebar/sidebar";
-// import {
-//   GetfavoraiteArtists,
-//   GetLivePodcasts,
-//   GetTrendingPodcasts,
-// } from "../GraphQL/query";
+import {
+  GetFavoraiteArtists,
+  GetFavoraitePodcasts,
+  GetTrendingPodcasts,
+} from "../GraphQL/query";
 import UserDefaultImage from "../assets/user.svg";
 import { AiFillHome, AiOutlineSearch, AiFillHeart } from "react-icons/ai";
 import { PageProps, Podstars } from "../Interfaces/interface";
@@ -30,20 +30,39 @@ interface Podcasts {
 
 const GetSkeletonCards = () => {
   const CardContainer = [];
-  for (let i = 0; i < 10; i++) {
-    CardContainer.push(<SkeletonCard />);
+  for (let i = 0; i < 6; i++) {
+    CardContainer.push(<SkeletonCard key={i}/>);
   }
   return CardContainer;
 };
 
 const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
+  console.log(storage);
   const [trending, setTrending] = useState<null | Array<Podcasts>>(null);
-  // const [live, setLive] = useState<null | Array<Podcasts>>(null);
   const [favoraiteArtists, setfavoraiteArtists] = useState<null | Array<Podstars>>(null);
   const [favoraitePodcasts, setFavoraitePodcasts] = useState<null | Array<Podcasts>>(null);
-  //   const Trending = useQuery(GetTrendingPodcasts);
-  //   const LivePodcasts = useQuery(GetLivePodcasts);
-  //   const favoraiteArtists = useQuery(GetfavoraiteArtists);
+  // const TrendingQuery = useQuery(GetTrendingPodcasts);
+  // const favoraiteArtistsQuery = useQuery(GetFavoraiteArtists, {
+  //   variables: {
+  //     userID: storage?.userID,
+  //     authToken: '',
+  //     userName: storage?.userName
+  //   },
+
+  //   onCompleted: () => {
+
+  //   }
+  // });
+  // const favoraitePodcastsQuery = useQuery(GetFavoraitePodcasts, {
+  //   variables: {
+  //     userID: storage?.userID,
+  //     authToken: '',
+  //     userName: storage?.userName
+  //   },
+  //   onCompleted: () => {
+
+  //   }
+  // });
 
   const TrendingCards = useMemo(() => {
     if (trending) {
@@ -66,7 +85,6 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
 
   const favoraitePodcastsCard = useMemo(() => {
     if (favoraitePodcasts) {
-
     }
     return GetSkeletonCards();
   }, [favoraitePodcasts]);

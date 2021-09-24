@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const data = GetPersistantData();
-    setStorage(data);
+    if (data) setStorage(data);
   }, []);
 
   if (authStatus === null) {

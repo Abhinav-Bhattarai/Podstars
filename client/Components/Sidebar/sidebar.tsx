@@ -22,7 +22,6 @@ export const NavigatorContainer: React.FC<{ name: string }> = ({
   name,
   children,
 }) => {
-    console.log(children);
   return (
     <nav className={styles.NavigatorContainer}>
       {children}

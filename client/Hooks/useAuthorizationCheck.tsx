@@ -10,8 +10,9 @@ interface AuthorizationDataType {
 export const GetPersistantData = (): StorageType | null => {
   const userID = localStorage.getItem("userID");
   const userName = localStorage.getItem("userName");
-  if (userID && userName) {
-    const config = { userID, userName };
+  const authToken = localStorage.getItem('authToken');
+  if (userID && userName && authToken) {
+    const config = { userID, userName, authToken };
     return config;
   }
   return null;
