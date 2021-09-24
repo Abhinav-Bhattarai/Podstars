@@ -20,5 +20,12 @@ __This webapp is all about podcasts with great UI__ <br/>
 > REDIS_PASSWORD=redis_pass <br/>
 > ENCRYPTION_TOKEN=your_token <br/>
 
+## You can change the https to http with following
+```
+import http from 'http'
+const server = http.createserver(app)
+// Remove https and const options
+```
+
 ![Gotthat](./client/assets/gt.png)
 
