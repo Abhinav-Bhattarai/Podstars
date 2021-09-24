@@ -1,15 +1,15 @@
 ### Podcasts
-__This webapp is all about podcasts with great UI__
-***It uses [Next.js]("https://nextjs.org/") as the frontend and Node for backend***
+__This webapp is all about podcasts with great UI__ <br/>
+**This site was built using** [Next](""https://nextjs.org/)
 
 ## install server dependencies
+> cd server
 ```
- cd server
  npm install
 ```
 
 ## install client dependencies
+> cd client
 ```
- cd client 
  npm install
 ```
