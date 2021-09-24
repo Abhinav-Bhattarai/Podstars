@@ -1,4 +1,4 @@
-import express, { application } from "express";
+import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { LoginMiddleware } from "../Middleware/LoginMiddleware.js";
@@ -27,11 +27,12 @@ const ValidateAuthenticationStatus = async (config) => {
     if (hashStatus) {
       return { UserName, uid: data.uid, id: data._id };
     }
+    return null;
   }
   return null;
 };
 
-router.post("/", LoginMiddleware, async(req, res) => {
+router.post("/", LoginMiddleware, async (req, res) => {
   const AuthenticationStatus = await ValidateAuthenticationStatus(req.body);
   if (AuthenticationStatus) {
     const token = GenerateJWTToken(AuthenticationStatus);
