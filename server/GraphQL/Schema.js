@@ -9,7 +9,7 @@ const {
   GraphQLInt,
 } = require("graphql");
 
-const UserSchema = new GraphQLObjectType({
+export const UserSchema = new GraphQLObjectType({
   name: "UserSchema",
   fields: () => {
     return {

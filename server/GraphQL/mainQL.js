@@ -12,10 +12,13 @@ import { cache } from "../server.js";
 import { CheckAuthorization } from "./helper.js";
 import {
   GetCachedTrendingData,
-  GetMyFavoraitesList,
+  GetMyFavoraiteArtistsList,
+  GetMyFavoraitePodcastsList,
+  GetMyTopArtists,
+  GetMyTopArtistsData,
   GetPodcastData,
 } from "./query-helper.js";
-import { PodcastSchema } from "./Schema.js";
+import { PodcastSchema, UserSchema } from "./Schema.js";
 
 const RootQuery = new GraphQLObjectType({
   name: "rootQuery",
@@ -46,7 +49,27 @@ const RootQuery = new GraphQLObjectType({
       },
     },
 
-    GetMyFavoraitesPodcasts: {
+    GetMyFavoraiteArtists: {
+      type: UserSchema,
+      args: {
+        userID: { type: GraphQLString },
+        authToken: { type: GraphQLString },
+        uid: { type: GraphQLInt },
+      },
+      resolve: async (_, args) => {
+        const { userID, authToken, uid } = args;
+        const authStatus = CheckAuthorization(authToken, userID, uid);
+        if (authStatus) {
+          const ArtistsID = await GetMyFavoraiteArtistsList(userID);
+          if (ArtistsID) {
+            const ArtistsData = await GetMyTopArtistsData(ArtistsID);
+            return ArtistsData;
+          }
+        }
+      }
+    },
+
+    GetMyFavoraitePodcasts: {
       type: new GraphQLList(PodcastSchema),
       args: {
         userID: { type: GraphQLString },
@@ -57,7 +80,7 @@ const RootQuery = new GraphQLObjectType({
         const { userID, authToken, uid } = args;
         const authStatus = CheckAuthorization(authToken, userID, uid);
         if (authStatus) {
-          const FavoraiteList = GetMyFavoraitesList(userID);
+          const FavoraiteList = GetMyFavoraitePodcastsList(userID);
           if (FavoraiteList) {
             const PodcastData = await GetPodcastData(FavoraiteList);
             return PodcastData;
