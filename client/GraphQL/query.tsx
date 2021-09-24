@@ -28,12 +28,26 @@ export const GetLivePodcasts = gql`
   }
 `;
 
-export const GetFavoraites = gql`
-  query($id: String!, $) {
-    GetMyFavoraites {
-        Username
-        Profile
-        Podcasts
+export const GetFavoraiteArtists = gql`
+  query ($id: String!, $authStatus: String!, $uid: String!) {
+    GetMyFavoraiteArtists(id: $id, authStatus: $authStatus, uid: $uid) {
+      Username
+      Profile
+      Podcasts
+    }
+  }
+`;
+
+export const GetFavoraitePodcasts = gql`
+  query ($id: String!, $authStatus: String!, $uid: String!) {
+    GetMyFavoraitePodcasts(id: $id, authStatus: $authStatus, uid: $uid) {
+      PodcastImage
+      Name
+      Description
+      VideoID
+      HostName
+      HostID
+      Playbacks
     }
   }
 `;

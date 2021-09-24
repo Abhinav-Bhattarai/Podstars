@@ -12,11 +12,11 @@ import SidebarContainer, {
   NavigatorContainer,
   IconContainer,
 } from "../Components/Sidebar/sidebar";
-import {
-  GetFavoraites,
-  GetLivePodcasts,
-  GetTrendingPodcasts,
-} from "../GraphQL/query";
+// import {
+//   GetfavoraiteArtists,
+//   GetLivePodcasts,
+//   GetTrendingPodcasts,
+// } from "../GraphQL/query";
 import UserDefaultImage from "../assets/user.svg";
 import { AiFillHome, AiOutlineSearch, AiFillHeart } from "react-icons/ai";
 import { PageProps, Podstars } from "../Interfaces/interface";
@@ -38,11 +38,12 @@ const GetSkeletonCards = () => {
 
 const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
   const [trending, setTrending] = useState<null | Array<Podcasts>>(null);
-  const [live, setLive] = useState<null | Array<Podcasts>>(null);
-  const [favoraites, setFavoraites] = useState<null | Array<Podstars>>(null);
+  // const [live, setLive] = useState<null | Array<Podcasts>>(null);
+  const [favoraiteArtists, setfavoraiteArtists] = useState<null | Array<Podstars>>(null);
+  const [favoraitePodcasts, setFavoraitePodcasts] = useState<null | Array<Podcasts>>(null);
   //   const Trending = useQuery(GetTrendingPodcasts);
   //   const LivePodcasts = useQuery(GetLivePodcasts);
-  //   const Favoraites = useQuery(GetFavoraites);
+  //   const favoraiteArtists = useQuery(GetfavoraiteArtists);
 
   const TrendingCards = useMemo(() => {
     if (trending) {
@@ -51,17 +52,24 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
     return GetSkeletonCards();
   }, [trending]);
 
-  const LiveCards = useMemo(() => {
-    if (live) {
-    }
-    return GetSkeletonCards();
-  }, [live]);
+  // const LiveCards = useMemo(() => {
+  //   if (live) {
+  //   }
+  //   return GetSkeletonCards();
+  // }, [live]);
 
-  const FavoraitesCard = useMemo(() => {
-    if (favoraites) {
+  const favoraiteArtistsCard = useMemo(() => {
+    if (favoraiteArtists) {
     }
     return GetSkeletonCards();
-  }, [favoraites]);
+  }, [favoraiteArtists]);
+
+  const favoraitePodcastsCard = useMemo(() => {
+    if (favoraitePodcasts) {
+
+    }
+    return GetSkeletonCards();
+  }, [favoraitePodcasts]);
 
   return (
     <React.Fragment>
@@ -95,11 +103,14 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
           <CardContainerNameType name="Currently Trending" />
           <CardContainer>{TrendingCards}</CardContainer>
 
-          <CardContainerNameType name="Top Live Podcasts" />
-          <CardContainer>{LiveCards}</CardContainer>
+          {/* <CardContainerNameType name="Top Live Podcasts" />
+          <CardContainer>{LiveCards}</CardContainer> */}
 
-          <CardContainerNameType name="Your Favoraites" />
-          <CardContainer>{FavoraitesCard}</CardContainer>
+          <CardContainerNameType name="Your Favoraite Artists" />
+          <CardContainer>{favoraiteArtistsCard}</CardContainer>
+
+          <CardContainerNameType name="Your Favoraite Podcasts" />
+          <CardContainer>{favoraitePodcastsCard}</CardContainer>
         </ScrollView>
       </MainContainer>
     </React.Fragment>
