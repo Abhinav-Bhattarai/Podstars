@@ -15,10 +15,10 @@ __This webapp is all about podcasts with great UI__ <br/>
 ```
 
 ## Add env file which contains:
-> MONGO_URI=mongoURI
-> REDIS_HOST=redis_host
-> REDIS_PASSWORD=redis_pass
-> ENCRYPTION_TOKEN=your_token
+> MONGO_URI=mongoURI <br/>
+> REDIS_HOST=redis_host <br/>
+> REDIS_PASSWORD=redis_pass <br/>
+> ENCRYPTION_TOKEN=your_token <br/>
 
-
+![Gotthat](./client/assets/gt.png)
 
