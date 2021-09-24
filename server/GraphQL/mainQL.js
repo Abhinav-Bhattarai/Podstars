@@ -30,10 +30,12 @@ const RootQuery = new GraphQLObjectType({
         if (CachedData === null) {
           const Trending = await TrendingModel.find({});
           // write-back to cache
-          await cache.set(
-            "TrendingPodcasts",
-            JSON.stringify(Trending.Podcasts)
-          );
+          if (Trending.Podcasts) {
+            await cache.set(
+              "TrendingPodcasts",
+              JSON.stringify(Trending.Podcasts)
+            );
+          }
           const PodcastData = await GetPodcastData(Trending.Podcasts);
           return PodcastData;
         }
@@ -54,10 +56,11 @@ const RootQuery = new GraphQLObjectType({
       args: {
         userID: { type: GraphQLString },
         authToken: { type: GraphQLString },
-        uid: { type: GraphQLInt },
+        uid: { type: GraphQLString },
       },
       resolve: async (_, args) => {
         const { userID, authToken, uid } = args;
+        console.log(userID, authToken, uid);
         const authStatus = CheckAuthorization(authToken, userID, uid);
         if (authStatus) {
           const ArtistsID = await GetMyFavoraiteArtistsList(userID);
@@ -66,7 +69,7 @@ const RootQuery = new GraphQLObjectType({
             return ArtistsData;
           }
         }
-      }
+      },
     },
 
     GetMyFavoraitePodcasts: {
@@ -74,10 +77,11 @@ const RootQuery = new GraphQLObjectType({
       args: {
         userID: { type: GraphQLString },
         authToken: { type: GraphQLString },
-        uid: { type: GraphQLInt },
+        uid: { type: GraphQLString },
       },
       resolve: async (_, args) => {
         const { userID, authToken, uid } = args;
+        console.log(userID, authToken, uid);
         const authStatus = CheckAuthorization(authToken, userID, uid);
         if (authStatus) {
           const FavoraiteList = GetMyFavoraitePodcastsList(userID);

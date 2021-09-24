@@ -15,13 +15,14 @@ import SignupRoute from './Router/signup-router.js';
 import checkAuthorizationRouter from './Router/checkAuthorization.js';
 import { MainSchema } from "./GraphQL/mainQL.js";
 import redis from 'async-redis';
+dotenv.config();
 
 export const cache = redis.createClient({
   host: process.env.REDIS_HOST,
   password: process.env.REDIS_PASSWORD,
   port: 18074
 });
-dotenv.config();
+
 const app = express();
 const PORT = 8080;
 const options = {

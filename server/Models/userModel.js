@@ -29,7 +29,7 @@ const Schema = new mongoose.Schema({
   },
 
   uid: {
-    type: Number,
+    type: String,
     default: Math.floor(Math.random() * 10000000000),
   },
 
