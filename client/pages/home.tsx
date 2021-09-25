@@ -30,7 +30,7 @@ interface Podcasts {
 const GetSkeletonCards = () => {
   const CardContainer = [];
   for (let i = 0; i < 6; i++) {
-    CardContainer.push(<SkeletonCard key={i}/>);
+    CardContainer.push(<SkeletonCard key={i} />);
   }
   return CardContainer;
 };
@@ -42,24 +42,20 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
   const TrendingQuery = useQuery(GetTrendingPodcasts);
   const favoraiteArtistsQuery = useQuery(GetFavoraiteArtists, {
     variables: {
-      userID: storage?.userID,
-      authToken: storage?.authToken,
-      uid: storage?.uid
+      userID: storage ? storage.userID : "",
+      authToken: storage ? storage.authToken : "",
+      uid: storage ? storage.uid : "",
     },
 
-    onCompleted: () => {
-
-    }
+    onCompleted: () => {},
   });
   const favoraitePodcastsQuery = useQuery(GetFavoraitePodcasts, {
     variables: {
-      userID: storage?.userID,
-      authToken: storage?.authToken,
-      uid: storage?.uid
+      userID: storage ? storage.userID : "",
+      authToken: storage ? storage.authToken : "",
+      uid: storage ? storage.uid : "",
     },
-    onCompleted: () => {
-
-    }
+    onCompleted: () => {},
   });
 
   const TrendingCards = useMemo(() => {
@@ -112,9 +108,6 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
         <ScrollView>
           <CardContainerNameType name="Currently Trending" />
           <CardContainer>{TrendingCards}</CardContainer>
-
-          {/* <CardContainerNameType name="Top Live Podcasts" />
-          <CardContainer>{LiveCards}</CardContainer> */}
 
           <CardContainerNameType name="Your Favoraite Artists" />
           <CardContainer>{favoraiteArtistsCard}</CardContainer>

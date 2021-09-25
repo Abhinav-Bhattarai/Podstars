@@ -3,13 +3,20 @@ import styles from "../../styles/maincontainer.module.css";
 import Image from "next/image";
 import { IconContainer } from "../Sidebar/sidebar";
 import { AiOutlineUser } from "react-icons/ai";
+import { useRouter } from "next/dist/client/router";
 
 export const MainViewHeader: React.FC<{ source?: string; name: string }> = (
   props
 ) => {
   const { source, name } = props;
+  const router = useRouter();
+
+  const PushToProfileRoute = () => {
+    router.push('/profile');
+  }
+
   return (
-    <main id={styles.MainViewHeaderContainer}>
+    <main id={styles.MainViewHeaderContainer} onClick={PushToProfileRoute}>
       <div className={styles.profileHolder}>
         {source ? (
           <Image

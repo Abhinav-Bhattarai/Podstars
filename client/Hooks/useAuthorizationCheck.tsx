@@ -42,8 +42,13 @@ const useAuthorizationCheck = () => {
     
     CheckAuthorization();
   });
+  
 
-  return auth_status;
+  const ChangeAuthentication = (changeTo: boolean) => {
+    setAuthStatus(changeTo);
+  }
+
+  return {auth_status, ChangeAuthentication};
 };
 
 export default useAuthorizationCheck;
