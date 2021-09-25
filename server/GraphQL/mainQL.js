@@ -4,8 +4,7 @@ const {
   GraphQLObjectType,
   GraphQLList,
   GraphQLSchema,
-  GraphQLString,
-  GraphQLInt,
+  GraphQLString
 } = require("graphql");
 import { TrendingModel } from "../Models/trending.js";
 import { cache } from "../server.js";
@@ -15,6 +14,7 @@ import {
   GetMyFavoraiteArtistsList,
   GetMyFavoraitePodcastsList,
   GetMyTopArtistsData,
+  
   GetPodcastData,
 } from "./query-helper.js";
 import { PodcastSchema, UserSchema } from "./Schema.js";
