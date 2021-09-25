@@ -23,7 +23,7 @@ export const GetMyTopArtists = async (artists) => {
 export const GetCachedTrendingData = async () => {
   // Array of PodcastID;
   const UnserializedData = await cache.get("TrendingPodcasts");
-  if (UnserializedData) {
+  if (UnserializedData !== 'undefined') {
     const CachedData = JSON.parse(UnserializedData);
     return CachedData;
   }

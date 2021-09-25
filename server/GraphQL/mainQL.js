@@ -14,7 +14,6 @@ import {
   GetCachedTrendingData,
   GetMyFavoraiteArtistsList,
   GetMyFavoraitePodcastsList,
-  GetMyTopArtists,
   GetMyTopArtistsData,
   GetPodcastData,
 } from "./query-helper.js";
@@ -28,13 +27,16 @@ const RootQuery = new GraphQLObjectType({
       resolve: async () => {
         const CachedData = await GetCachedTrendingData();
         if (CachedData === null) {
-          const Trending = await TrendingModel.find({});
+          const Trending = await TrendingModel.findOne({});
+          console.log(Trending);
           // write-back to cache
-          if (Trending.Podcasts) {
-            await cache.set(
-              "TrendingPodcasts",
-              JSON.stringify(Trending.Podcasts)
-            );
+          if (Trending) {
+            if (Trending.Podcasts) {
+              await cache.set(
+                "TrendingPodcasts",
+                JSON.stringify(Trending.Podcasts)
+              );
+            }
           }
           const PodcastData = await GetPodcastData(Trending.Podcasts);
           return PodcastData;
@@ -60,7 +62,6 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve: async (_, args) => {
         const { userID, authToken, uid } = args;
-        console.log(userID, authToken, uid);
         const authStatus = CheckAuthorization(authToken, userID, uid);
         if (authStatus) {
           const ArtistsID = await GetMyFavoraiteArtistsList(userID);
@@ -81,7 +82,6 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve: async (_, args) => {
         const { userID, authToken, uid } = args;
-        console.log(userID, authToken, uid);
         const authStatus = CheckAuthorization(authToken, userID, uid);
         if (authStatus) {
           const FavoraiteList = GetMyFavoraitePodcastsList(userID);
