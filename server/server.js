@@ -11,6 +11,7 @@ const ExpressGraphQL = require("express-graphql").graphqlHTTP;
 import depthLimit from "graphql-depth-limit";
 import LoginRoute from './Router/login-router.js';
 import SignupRoute from './Router/signup-router.js';
+import http from 'http';
 
 import checkAuthorizationRouter from './Router/checkAuthorization.js';
 import { MainSchema } from "./GraphQL/mainQL.js";
@@ -25,17 +26,19 @@ export const cache = redis.createClient({
 
 const app = express();
 const PORT = 8080;
-const options = {
-  key: fs.readFileSync("key.pem"),
-  cert: fs.readFileSync("cert.pem"),
-};
-const server = https.createServer(options, app);
+// const options = {
+//   key: fs.readFileSync("key.pem"),
+//   cert: fs.readFileSync("cert.pem"),
+// };
+// const server = https.createServer(options, app);
+const server = http.createServer(app);
 
 // middlewares
 app.use(express.json({ limit: "50mb" }));
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: "http://localhost:3000",
+    credentials: true
   })
 );
 app.use(cookieParser());

@@ -19,7 +19,7 @@ const CheckJSONwebToken = (token, uid, id) => {
 
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.setHeader('Access-Control-Allow-Credentials', "'true'");
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   console.log(req.cookies);
   try {
     const { authToken, uid } = req.cookies;

@@ -3,6 +3,8 @@ import { Decrypt } from "../Cryptography/crypto.js";
 export const LoginMiddleware = (req, res, next) => {
   const { Enc } = req.body;
   const DecryptedData = Decrypt(Enc);
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   if (DecryptedData) {
     const { UserName, Password } = DecryptedData;
     if (UserName.length > 4 && Password.length > 7) {

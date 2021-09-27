@@ -2,6 +2,8 @@ import { Decrypt } from "../Cryptography/crypto.js";
 
 export const SignupMiddleware = (req, res, next) => {
   const { Enc } = req.body;
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   const DecryptedData = Decrypt(Enc);
   if (DecryptedData) {
     const { UserName, Password, Confirm, Email } = DecryptedData;
