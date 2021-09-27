@@ -38,20 +38,9 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
   const [favoraitePodcasts, setFavoraitePodcasts] = useState<null | Array<Podcasts>>(null);
   const TrendingQuery = useQuery(GetTrendingPodcasts);
   const favoraiteArtistsQuery = useQuery(GetFavoraiteArtists, {
-    variables: {
-      userID: storage ? storage.userID : "",
-      authToken: storage ? storage.authToken : "",
-      uid: storage ? storage.uid : "",
-    },
-
     onCompleted: () => {},
   });
   const favoraitePodcastsQuery = useQuery(GetFavoraitePodcasts, {
-    variables: {
-      userID: storage ? storage.userID : "",
-      authToken: storage ? storage.authToken : "",
-      uid: storage ? storage.uid : "",
-    },
     onCompleted: () => {},
   });
 

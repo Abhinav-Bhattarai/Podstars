@@ -10,10 +10,8 @@ interface AuthorizationDataType {
 export const GetPersistantData = (): StorageType | null => {
   const userID = localStorage.getItem("userID");
   const userName = localStorage.getItem("userName");
-  const authToken = localStorage.getItem('authToken');
-  const uid = localStorage.getItem('uid');
-  if (userID && userName && authToken && uid) {
-    const config = { userID, userName, authToken, uid };
+  if (userID && userName) {
+    const config = { userID, userName };
     return config;
   }
   return null;
@@ -26,9 +24,8 @@ const useAuthorizationCheck = () => {
     const CheckAuthorization = async () => {
       const PostConfig = GetPersistantData();
       if (PostConfig) {
-        const { data }: { data: AuthorizationDataType } = await axios.post(
+        const { data }: { data: AuthorizationDataType } = await axios.get(
           "http://localhost:8080/checkAuthorization",
-          PostConfig,
           {
             withCredentials: true
           }

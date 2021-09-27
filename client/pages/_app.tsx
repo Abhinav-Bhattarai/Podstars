@@ -3,12 +3,16 @@ import type { AppProps } from "next/app";
 import { useEffect, useState } from 'react';
 import useAuthorizationCheck, { GetPersistantData } from "../Hooks/useAuthorizationCheck";
 import LoadingPage from "../Components/UI/loadingPage";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
 import { StorageType } from "../Interfaces/interface";
-import { useRouter } from "next/dist/client/router";
+
+const link = createHttpLink({
+  uri: "http://localhost:8080/graphql",
+  credentials: 'include'
+})
 
 const client = new ApolloClient({
-  uri: "http://localhost:8080/graphql",
+  link,
   cache: new InMemoryCache(),
 });
 
@@ -16,7 +20,6 @@ const client = new ApolloClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [storage, setStorage] = useState<null | StorageType>(null);
-  const router = useRouter();
   const {auth_status, ChangeAuthentication} = useAuthorizationCheck();
 
   useEffect(() => {
