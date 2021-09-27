@@ -28,7 +28,6 @@ const RootQuery = new GraphQLObjectType({
         const CachedData = await GetCachedTrendingData();
         if (CachedData === null) {
           const Trending = await TrendingModel.findOne({});
-          console.log(Trending);
           // write-back to cache
           if (Trending) {
             if (Trending.Podcasts) {

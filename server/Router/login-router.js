@@ -39,8 +39,9 @@ router.post("/", LoginMiddleware, async (req, res) => {
     const token = GenerateJWTToken(AuthenticationStatus);
     if (token) {
       res.setHeader("Set-Cookie", [
-        `authToken: ${token}; SameSite=Strict; HttpOnly`,
-        `uid: ${AuthenticationStatus.uid}; HttpOnly; SameSite=Strict`,
+        `authToken=${token}; SameSite=Strict; httpOnly`,
+        `uid=${AuthenticationStatus.uid}; httpOnly; SameSite=Strict`,
+        `id=${AuthenticationStatus.id}; httpOnly; SameSite=Strict`,
       ]);
       return res.json({ authStatus: true });
     }
