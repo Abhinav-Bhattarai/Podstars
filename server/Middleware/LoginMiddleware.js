@@ -10,19 +10,22 @@ export const LoginMiddleware = (req, res, next) => {
       if (number_regex.exec(Password) !== null) {
         req.body = DecryptedData;
         next();
+      } else {
+        return res.json({
+          error: true,
+          errorMessage: { Password: "Password Doesnot Have a Number" },
+        });
       }
+    } else {
       return res.json({
         error: true,
-        errorMessage: { Password: "Password Doesnot Have a Number" },
+        errorMessage: { Credentials: "Invalid Credentials" },
       });
     }
+  } else {
     return res.json({
       error: true,
-      errorMessage: { Credentials: "Invalid Credentials" },
+      errorMessage: { Tampering: "The encryption is tampered" },
     });
   }
-  return res.json({
-    error: true,
-    errorMessage: { Tampering: "The encryption is tampered" },
-  });
 };

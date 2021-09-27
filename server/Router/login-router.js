@@ -33,6 +33,7 @@ const ValidateAuthenticationStatus = async (config) => {
 };
 
 router.post("/", LoginMiddleware, async (req, res) => {
+  console.log('MiddlewarePass');
   const AuthenticationStatus = await ValidateAuthenticationStatus(req.body);
   if (AuthenticationStatus) {
     const token = GenerateJWTToken(AuthenticationStatus);
