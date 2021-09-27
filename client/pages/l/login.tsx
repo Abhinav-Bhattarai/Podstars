@@ -20,9 +20,7 @@ const Login: NextPage<NextPageProps> = (props) => {
 
   const Submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("submitted");
     if (username.length > 4 && password.length > 7) {
-      console.log("if 1 matched");
       const number_regex = /[0-9]/;
       if (number_regex.exec(password) !== null) {
         const config = {
@@ -30,11 +28,9 @@ const Login: NextPage<NextPageProps> = (props) => {
           Password: password,
         };
         const EncryptedConfig = Encrypt(config);
-        console.log(EncryptedConfig);
-        const { data } = await axios.post("https://localhost:8080/login", {
+        const { data } = await axios.post("http://localhost:8080/signup", {
           Enc: EncryptedConfig,
         });
-        console.log(data);
       }
     }
   };

@@ -8,7 +8,7 @@ import { StorageType } from "../Interfaces/interface";
 import { useRouter } from "next/dist/client/router";
 
 const client = new ApolloClient({
-  uri: "https://localhost:8080/graphql",
+  uri: "http://localhost:8080/graphql",
   cache: new InMemoryCache(),
 });
 

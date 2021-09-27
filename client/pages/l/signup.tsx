@@ -30,7 +30,7 @@ const Signup: NextPage<NextPageProps> = (props) => {
           Confirm: confirm,
         };
         const EncryptedConfig = Encrypt(config);
-        const { data } = await axios.post("/login", { Enc: EncryptedConfig });
+        const { data } = await axios.post("http://localhost:8080/login", { Enc: EncryptedConfig });
       }
     }
   };

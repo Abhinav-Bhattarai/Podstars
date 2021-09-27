@@ -27,7 +27,7 @@ const useAuthorizationCheck = () => {
       const PostConfig = GetPersistantData();
       if (PostConfig) {
         const { data }: { data: AuthorizationDataType } = await axios.post(
-          "https://localhost:8080/checkAuthorization",
+          "http://localhost:8080/checkAuthorization",
           PostConfig,
           {
             withCredentials: true
