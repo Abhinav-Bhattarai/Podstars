@@ -54,13 +54,8 @@ const RootQuery = new GraphQLObjectType({
 
     GetMyFavoraiteArtists: {
       type: UserSchema,
-      args: {
-        userID: { type: GraphQLString },
-        authToken: { type: GraphQLString },
-        uid: { type: GraphQLString },
-      },
-      resolve: async (_, args) => {
-        const { userID, authToken, uid } = args;
+      resolve: async (_, _, context) => {
+        const { userID, authToken, uid } = context;
         const authStatus = CheckAuthorization(authToken, userID, uid);
         if (authStatus) {
           const ArtistsID = await GetMyFavoraiteArtistsList(userID);
@@ -74,13 +69,8 @@ const RootQuery = new GraphQLObjectType({
 
     GetMyFavoraitePodcasts: {
       type: new GraphQLList(PodcastSchema),
-      args: {
-        userID: { type: GraphQLString },
-        authToken: { type: GraphQLString },
-        uid: { type: GraphQLString },
-      },
-      resolve: async (_, args) => {
-        const { userID, authToken, uid } = args;
+      resolve: async (_, _, context) => {
+        const { userID, authToken, uid } = context;
         const authStatus = CheckAuthorization(authToken, userID, uid);
         if (authStatus) {
           const FavoraiteList = GetMyFavoraitePodcastsList(userID);
