@@ -77,3 +77,11 @@ export const FormNavigationButton: React.FC<{
     </button>
   );
 };
+
+export const CredentialContainer: React.FC<{}> = ({ children }) => {
+  return (
+    <main id={styles['credential-container']}>
+      { children }
+    </main>
+  )
+}

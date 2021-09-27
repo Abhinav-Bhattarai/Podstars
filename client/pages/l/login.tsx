@@ -1,7 +1,9 @@
+import axios from "axios";
 import { NextPage } from "next";
 import React, { useState } from "react";
 import { NextPageProps } from "..";
 import {
+  CredentialContainer,
   FormContainer,
   FormElement,
   FormHeader,
@@ -10,17 +12,37 @@ import {
   FormNavigationButton,
   FormSubmitButton,
 } from "../../Components/LandingPage/reusables";
+import { Encrypt } from "../../Cryptography/crypto";
 
 const Login: NextPage<NextPageProps> = (props) => {
-
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const Submit = () => {
-
+  const Submit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log("submitted");
+    if (username.length > 4 && password.length > 7) {
+      console.log("if 1 matched");
+      const number_regex = /[0-9]/;
+      if (number_regex.exec(password) !== null) {
+        const config = {
+          UserName: username,
+          Password: password,
+        };
+        const EncryptedConfig = Encrypt(config);
+        console.log(EncryptedConfig);
+        const { data } = await axios.post("https://localhost:8080/login", {
+          Enc: EncryptedConfig,
+        });
+        console.log(data);
+      }
+    }
   };
 
-  const ChangeLoginCred = (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
+  const ChangeLoginCred = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => {
     const value = event.target.value;
     switch (type) {
       case "username":
@@ -34,35 +56,37 @@ const Login: NextPage<NextPageProps> = (props) => {
 
   return (
     <React.Fragment>
-      <FormContainer>
-        <FormHeader name="Login" />
-        <FormElement type="login" Submit={Submit}>
-          <FormInputLabel label="Username" html_for="login_username" />
-          <FormInput
-            name="login_username"
-            type="text"
-            formType="username"
-            placeholder="Username"
-            value={username}
-            Change={(event) => ChangeLoginCred(event, "username")}
-          />
+      <CredentialContainer>
+        <FormContainer>
+          <FormHeader name="Login" />
+          <FormElement type="login" Submit={Submit}>
+            <FormInputLabel label="Username" html_for="login_username" />
+            <FormInput
+              name="login_username"
+              type="text"
+              formType="username"
+              placeholder="Username"
+              value={username}
+              Change={(event) => ChangeLoginCred(event, "username")}
+            />
 
-          <FormInputLabel label="Password" html_for="login_password" />
-          <FormInput
-            name="login_password"
-            type="password"
-            formType="password"
-            placeholder="Password"
-            value={password}
-            Change={(event) => ChangeLoginCred(event, "password")}
+            <FormInputLabel label="Password" html_for="login_password" />
+            <FormInput
+              name="login_password"
+              type="password"
+              formType="password"
+              placeholder="Password"
+              value={password}
+              Change={(event) => ChangeLoginCred(event, "password")}
+            />
+            <FormSubmitButton name="Login" />
+          </FormElement>
+          <FormNavigationButton
+            navigateTo="/l/signup"
+            name="Create new Account"
           />
-          <FormSubmitButton name="Login" />
-        </FormElement>
-        <FormNavigationButton
-          navigateTo="/l/signup"
-          name="Create new Account"
-        />
-      </FormContainer>
+        </FormContainer>
+      </CredentialContainer>
     </React.Fragment>
   );
 };

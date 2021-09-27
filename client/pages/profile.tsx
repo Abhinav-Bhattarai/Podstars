@@ -20,9 +20,7 @@ const Profile: NextPage<PageProps> = ({ storage }) => {
 
   useEffect(() => {
     if (auth_status === false) {
-      setTimeout(() => {
-        router.replace("/l/login");
-      }, 20000);
+      router.replace("/l/login");
     }
   }, [router, auth_status]);
 

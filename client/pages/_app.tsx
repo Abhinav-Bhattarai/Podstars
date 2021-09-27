@@ -24,14 +24,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     setStorage(data);
   }, []);
 
-  useEffect(() => {
-    if (auth_status === false) {
-      setTimeout(() => {
-        router.push('/l/login');
-      }, 120000)
-    }
-  }, [auth_status, router]);
-
   const ChangeAuthenticationStatus = (changeTo: boolean) => ChangeAuthentication(changeTo);
 
   if (auth_status === null) {

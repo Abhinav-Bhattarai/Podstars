@@ -24,6 +24,7 @@
     "socket.io-client": "^4.2.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.0.2",
     "@types/react": "17.0.21",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",

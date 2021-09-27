@@ -27,13 +27,10 @@ interface Podcasts {
   photo: string;
 }
 
-const GetSkeletonCards = () => {
-  const CardContainer = [];
-  for (let i = 0; i < 6; i++) {
-    CardContainer.push(<SkeletonCard key={i} />);
-  }
-  return CardContainer;
-};
+const SkeletonCardContainer: Array<any> = [];
+for (let i = 0; i < 6; i++) {
+  SkeletonCardContainer.push(<SkeletonCard key={i} />);
+}
 
 const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
   const [trending, setTrending] = useState<null | Array<Podcasts>>(null);
@@ -62,19 +59,19 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
     if (trending) {
       // mapping
     }
-    return GetSkeletonCards();
+    return SkeletonCardContainer;
   }, [trending]);
 
   const favoraiteArtistsCard = useMemo(() => {
     if (favoraiteArtists) {
     }
-    return GetSkeletonCards();
+    return SkeletonCardContainer;
   }, [favoraiteArtists]);
 
   const favoraitePodcastsCard = useMemo(() => {
     if (favoraitePodcasts) {
     }
-    return GetSkeletonCards();
+    return SkeletonCardContainer;
   }, [favoraitePodcasts]);
 
   return (
@@ -121,3 +118,4 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
 };
 
 export default Home;
+
