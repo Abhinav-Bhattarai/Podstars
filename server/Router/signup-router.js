@@ -36,7 +36,12 @@ router.post("/", SignupMiddleware, async (req, res) => {
         `uid=${AuthenticationStatus.uid}; httpOnly; SameSite=Strict`,
         `id=${AuthenticationStatus.id}; httpOnly; SameSite=Strict`,
       ]);
-      return res.json({ authStatus: true, error: false });
+      return res.json({
+        authStatus: true,
+        error: false,
+        userID: AuthenticationStatus.id,
+        UserName: AuthenticationStatus.UserName,
+      });
     } else {
       return res.json({ error: false, authStatus: false });
     }

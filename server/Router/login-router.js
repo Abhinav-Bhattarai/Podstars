@@ -33,7 +33,6 @@ const ValidateAuthenticationStatus = async (config) => {
 };
 
 router.post("/", LoginMiddleware, async (req, res) => {
-  console.log('MiddlewarePass');
   const AuthenticationStatus = await ValidateAuthenticationStatus(req.body);
   if (AuthenticationStatus) {
     const token = GenerateJWTToken(AuthenticationStatus);
@@ -43,8 +42,23 @@ router.post("/", LoginMiddleware, async (req, res) => {
         `uid=${AuthenticationStatus.uid}; httpOnly; SameSite=Strict`,
         `id=${AuthenticationStatus.id}; httpOnly; SameSite=Strict`,
       ]);
-      return res.json({ authStatus: true });
+      return res.json({
+        authStatus: true,
+        error: false,
+        userID: AuthenticationStatus.id,
+        UserName: AuthenticationStatus.UserName,
+      });
+    } else {
+      return res.json({
+        authStatus: false,
+        error: false
+      });
     }
+  } else {
+    return res.json({
+      authStatus: false,
+      error: false
+    });
   }
 });
 
