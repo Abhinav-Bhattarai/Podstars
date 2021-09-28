@@ -29,8 +29,8 @@ export const GetLivePodcasts = gql`
 `;
 
 export const GetFavoraiteArtists = gql`
-  query ($userID: String!, $authToken: String!, $uid: String!) {
-    GetMyFavoraiteArtists(userID: $userID, authToken: $authToken, uid: $uid) {
+  query {
+    GetMyFavoraiteArtists {
       Username
       Profile
       Podcasts
@@ -39,8 +39,8 @@ export const GetFavoraiteArtists = gql`
 `;
 
 export const GetFavoraitePodcasts = gql`
-  query ($userID: String!, $authToken: String!, $uid: String!) {
-    GetMyFavoraitePodcasts(userID: $userID, authToken: $authToken, uid: $uid) {
+  query {
+    GetMyFavoraitePodcasts {
       PodcastImage
       Name
       Description

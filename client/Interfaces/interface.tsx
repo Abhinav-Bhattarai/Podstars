@@ -10,4 +10,5 @@ export interface StorageType {
 export interface PageProps {
   authStatus: boolean;
   storage: StorageType | null;
+  ChangeAuthentication: (changeTo: boolean) => void;
 }

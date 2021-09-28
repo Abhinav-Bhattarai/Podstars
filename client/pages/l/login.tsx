@@ -1,7 +1,6 @@
 import axios from "axios";
 import { NextPage } from "next";
 import React, { useState } from "react";
-import { NextPageProps } from "..";
 import {
   CredentialContainer,
   FormContainer,
@@ -13,8 +12,11 @@ import {
   FormSubmitButton,
 } from "../../Components/LandingPage/reusables";
 import { Encrypt } from "../../Cryptography/crypto";
+import { PageProps } from "../../Interfaces/interface";
+import { AddLocalStorageData, CredData } from "./signup";
 
-const Login: NextPage<NextPageProps> = (props) => {
+const Login: NextPage<PageProps> = (props) => {
+  const { ChangeAuthentication } = props;
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -28,9 +30,15 @@ const Login: NextPage<NextPageProps> = (props) => {
           Password: password,
         };
         const EncryptedConfig = Encrypt(config);
-        const { data } = await axios.post("http://localhost:8080/signup", {
+        const { data }: { data: CredData } = await axios.post("http://localhost:8080/signup", {
           Enc: EncryptedConfig,
         });
+        if (data.error === false) {
+          if (data.authStatus) {
+            AddLocalStorageData(data.userID, data.UserName);
+            ChangeAuthentication(true);
+          }
+        }
       }
     }
   };
