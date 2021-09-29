@@ -23,10 +23,10 @@ const Schema = new mongoose.Schema({
     default: "",
   },
 
-  Email: {
-    type: String,
-    required: true,
-  },
+  // Email: {
+  //   type: String,
+  //   required: true,
+  // },
 
   uid: {
     type: String,

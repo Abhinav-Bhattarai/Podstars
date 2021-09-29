@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { LoginMiddleware } from "../Middleware/LoginMiddleware.js";
 import { UserModel } from "../Models/userModel.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 
@@ -12,14 +14,14 @@ const CompareHash = async (Password, Hash) => {
 };
 
 export const GenerateJWTToken = (data) => {
-  const SerializedData = JSON.stringify(data);
-  const token = jwt.sign(SerializedData, process.env.JWT_AUTH_TOKEN, {
+  // const SerializedData = JSON.stringify(data);
+  const token = jwt.sign(data, process.env.JWT_AUTH_TOKEN, {
     expiresIn: "3d",
   });
   return token;
 };
 
-const ValidateAuthenticationStatus = async (config) => {
+const ValidateAuthenticationConfig = async (config) => {
   const { UserName, Password } = config;
   const data = await UserModel.findOne({ UserName });
   if (data) {
@@ -33,31 +35,34 @@ const ValidateAuthenticationStatus = async (config) => {
 };
 
 router.post("/", LoginMiddleware, async (req, res) => {
-  const AuthenticationStatus = await ValidateAuthenticationStatus(req.body);
-  if (AuthenticationStatus) {
-    const token = GenerateJWTToken(AuthenticationStatus);
+  const AuthenticationConfig = await ValidateAuthenticationConfig(req.body);
+  if (AuthenticationConfig) {
+    const token = GenerateJWTToken(AuthenticationConfig);
     if (token) {
-      res.setHeader("Set-Cookie", [
-        `authToken=${token}; SameSite=Strict; httpOnly`,
-        `uid=${AuthenticationStatus.uid}; httpOnly; SameSite=Strict`,
-        `id=${AuthenticationStatus.id}; httpOnly; SameSite=Strict`,
-      ]);
+      const cookie_option = {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: true
+      }
+      res.cookie("authToken", token, cookie_option);
+      res.cookie("uid", AuthenticationConfig.uid, cookie_option);
+      res.cookie("id", AuthenticationConfig.id, cookie_option);
       return res.json({
         authStatus: true,
         error: false,
-        userID: AuthenticationStatus.id,
-        UserName: AuthenticationStatus.UserName,
+        userID: AuthenticationConfig.id,
+        UserName: req.body.UserName,
       });
     } else {
       return res.json({
         authStatus: false,
-        error: false
+        error: false,
       });
     }
   } else {
     return res.json({
       authStatus: false,
-      error: false
+      error: false,
     });
   }
 });

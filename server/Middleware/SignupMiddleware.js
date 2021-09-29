@@ -4,12 +4,11 @@ export const SignupMiddleware = (req, res, next) => {
   const { Enc } = req.body;
   const DecryptedData = Decrypt(Enc);
   if (DecryptedData) {
-    const { UserName, Password, Confirm, Email } = DecryptedData;
+    const { UserName, Password, Confirm } = DecryptedData;
     if (
       UserName.length > 4 &&
       Password.length > 7 &&
-      Confirm === Password &&
-      Email.length > 11
+      Confirm === Password
     ) {
       const number_regex = /[0-9]/;
       if (number_regex.exec(Password) !== null) {

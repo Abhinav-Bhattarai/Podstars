@@ -8,9 +8,11 @@ const router = express.Router();
 const CheckJSONwebToken = (token, uid, id) => {
   const data = jwt.verify(token, process.env.JWT_AUTH_TOKEN);
   if (data) {
-    const SerializedData = JSON.parse(data);
-    if (SerializedData.uid === uid && SerializedData.id === id) {
-      return SerializedData;
+    if (typeof data !== 'string') {
+      if (data.uid === uid && data.id === id) {
+        return data;
+      }
+      return null
     }
     return null;
   }

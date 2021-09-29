@@ -31,16 +31,20 @@ router.post("/", SignupMiddleware, async (req, res) => {
     const config = { UserName, uid: response.uid, id: response._id };
     const token = GenerateJWTToken(config);
     if (token) {
-      res.setHeader("Set-Cookie", [
-        `authToken=${token}; SameSite=Strict; httpOnly`,
-        `uid=${AuthenticationStatus.uid}; httpOnly; SameSite=Strict`,
-        `id=${AuthenticationStatus.id}; httpOnly; SameSite=Strict`,
-      ]);
+      const cookie_option = {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: true
+      }
+      res.cookie("authToken", token, cookie_option);
+      res.cookie("uid", response.uid, cookie_option);
+      res.cookie("id", response.id, cookie_option);
+
       return res.json({
         authStatus: true,
         error: false,
-        userID: AuthenticationStatus.id,
-        UserName: AuthenticationStatus.UserName,
+        userID: response.id,
+        UserName: req.body.UserName,
       });
     } else {
       return res.json({ error: false, authStatus: false });

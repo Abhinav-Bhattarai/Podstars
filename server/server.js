@@ -37,7 +37,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(
   cors({
     origin: "http://localhost:3000",
-    credentials: true,
+    credentials: true
   })
 );
 app.use(cookieParser());
@@ -49,6 +49,11 @@ app.use(cookieParser());
 // graphql
 app.use(
   "/graphql",
+  (_, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+  },
   graphqlHTTP((req, _) => {
     return {
       graphiql: false,

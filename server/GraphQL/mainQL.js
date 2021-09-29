@@ -55,11 +55,11 @@ const RootQuery = new GraphQLObjectType({
     GetMyFavoraiteArtists: {
       type: UserSchema,
       resolve: async (_, args, context) => {
-        console.log(context);
-        const { userID, authToken, uid } = context;
-        const authStatus = CheckAuthorization(authToken, userID, uid);
+        const { id, authToken, uid } = context.cookies;
+        console.log(id, authToken, uid);
+        const authStatus = CheckAuthorization(authToken, id, uid);
         if (authStatus) {
-          const ArtistsID = await GetMyFavoraiteArtistsList(userID);
+          const ArtistsID = await GetMyFavoraiteArtistsList(id);
           if (ArtistsID) {
             const ArtistsData = await GetMyTopArtistsData(ArtistsID);
             return ArtistsData;
@@ -71,10 +71,10 @@ const RootQuery = new GraphQLObjectType({
     GetMyFavoraitePodcasts: {
       type: new GraphQLList(PodcastSchema),
       resolve: async (_, args, context) => {
-        const { userID, authToken, uid } = context;
-        const authStatus = CheckAuthorization(authToken, userID, uid);
+        const { id, authToken, uid } = context.cookies;
+        const authStatus = CheckAuthorization(authToken, id, uid);
         if (authStatus) {
-          const FavoraiteList = GetMyFavoraitePodcastsList(userID);
+          const FavoraiteList = GetMyFavoraitePodcastsList(id);
           if (FavoraiteList) {
             const PodcastData = await GetPodcastData(FavoraiteList);
             return PodcastData;
