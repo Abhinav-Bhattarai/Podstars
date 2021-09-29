@@ -12,6 +12,7 @@ import {
   FormNavigationButton,
   FormSubmitButton,
 } from "../../Components/LandingPage/reusables";
+import LoadingPage from "../../Components/UI/loadingPage";
 import { Encrypt } from "../../Cryptography/crypto";
 import { PageProps } from "../../Interfaces/interface";
 import { AddLocalStorageData, CredData } from "./signup";
@@ -28,6 +29,10 @@ const Login: NextPage<PageProps> = (props) => {
       router.replace('/home');
     }
   }, [authStatus, router]);
+
+  if (authStatus === true) {
+    return <React.Fragment><LoadingPage/></React.Fragment>
+  }
 
   const Submit = async (event: React.FormEvent) => {
     event.preventDefault();

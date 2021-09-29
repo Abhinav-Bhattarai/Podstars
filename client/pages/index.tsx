@@ -10,11 +10,7 @@ export interface NextPageProps {
 const Home: NextPage<NextPageProps> = ({ authStatus }) => {
   const router = useRouter();
   useEffect(() => {
-    if (authStatus) {
-      router.replace("/m");
-      return;
-    }
-    router.replace("/home");
+    router.replace('/home');
   }, [router, authStatus]);
 
   return <LoadingPage />;
