@@ -12,6 +12,7 @@ import {
   FormNavigationButton,
   FormSubmitButton,
 } from "../../Components/LandingPage/reusables";
+import LoadingPage from "../../Components/UI/loadingPage";
 import { Encrypt } from "../../Cryptography/crypto";
 import { PageProps } from "../../Interfaces/interface";
 
@@ -79,11 +80,19 @@ const Signup: NextPage<PageProps> = (props) => {
   };
 
   useEffect(() => {
-    console.log('router changed');
+    console.log("router changed");
     if (authStatus === true) {
-      router.replace('/home');
+      router.replace("/home");
     }
   }, [authStatus, router]);
+
+  if (authStatus === true) {
+    return (
+      <React.Fragment>
+        <LoadingPage />
+      </React.Fragment>
+    );
+  }
 
   return (
     <React.Fragment>

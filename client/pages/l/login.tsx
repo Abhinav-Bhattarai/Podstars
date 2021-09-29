@@ -23,17 +23,6 @@ const Login: NextPage<PageProps> = (props) => {
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
 
-  useEffect(() => {
-    console.log('router changed');
-    if (authStatus === true) {
-      router.replace('/home');
-    }
-  }, [authStatus, router]);
-
-  if (authStatus === true) {
-    return <React.Fragment><LoadingPage/></React.Fragment>
-  }
-
   const Submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (username.length > 4 && password.length > 7) {
@@ -75,6 +64,21 @@ const Login: NextPage<PageProps> = (props) => {
         break;
     }
   };
+
+  useEffect(() => {
+    console.log("router changed");
+    if (authStatus === true) {
+      router.replace("/home");
+    }
+  }, [authStatus, router]);
+
+  if (authStatus === true) {
+    return (
+      <React.Fragment>
+        <LoadingPage />
+      </React.Fragment>
+    );
+  }
 
   return (
     <React.Fragment>
