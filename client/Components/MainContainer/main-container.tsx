@@ -28,7 +28,7 @@ export const MainViewHeader: React.FC<{ source?: string; name: string }> = (
   const router = useRouter();
 
   const PushToProfileRoute = () => {
-    router.push('/profile');
+    router.push(`/profile`);
   }
 
   return (

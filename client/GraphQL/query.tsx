@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 export const GetTrendingPodcasts = gql`
   query {
     GetTrendingData {
+      _id
       PodcastImage
       Name
       Description
@@ -17,6 +18,7 @@ export const GetTrendingPodcasts = gql`
 export const GetLivePodcasts = gql`
   query {
     GetLivePodcasts {
+      _id
       PodcastImage
       Name
       Description
@@ -31,6 +33,7 @@ export const GetLivePodcasts = gql`
 export const GetFavoraiteArtists = gql`
   query {
     GetMyFavoraiteArtists {
+      _id
       Username
       Profile
       Podcasts
@@ -41,6 +44,7 @@ export const GetFavoraiteArtists = gql`
 export const GetFavoraitePodcasts = gql`
   query {
     GetMyFavoraitePodcasts {
+      _id
       PodcastImage
       Name
       Description
@@ -48,6 +52,17 @@ export const GetFavoraitePodcasts = gql`
       HostName
       HostID
       Playbacks
+    }
+  }
+`;
+
+export const GetProfileInformation = gql`
+  query ($userID: String) {
+    GetProfileData(userID: $userID) {
+      _id
+      Username
+      Profile
+      Podcasts
     }
   }
 `;
