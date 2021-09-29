@@ -5,7 +5,6 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLID,
   GraphQLInt,
 } = require("graphql");
 
@@ -13,7 +12,7 @@ export const UserSchema = new GraphQLObjectType({
   name: "UserSchema",
   fields: () => {
     return {
-      _id: { type: GraphQLID },
+      _id: { type: GraphQLString },
 
       Username: { type: GraphQLString },
 
@@ -42,6 +41,8 @@ export const PodcastSchema = new GraphQLObjectType({
   name: "PodcastSchema",
   fields: () => {
     return {
+      _id: { type: GraphQLString },
+
       PodcastImage: { type: GraphQLString },
 
       Name: { type: GraphQLString },

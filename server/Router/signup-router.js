@@ -34,7 +34,8 @@ router.post("/", SignupMiddleware, async (req, res) => {
       const cookie_option = {
         httpOnly: true,
         sameSite: 'strict',
-        secure: true
+        secure: true,
+        expires: new Date(new Date().getTime()+86409000).toUTCString()
       }
       res.cookie("authToken", token, cookie_option);
       res.cookie("uid", response.uid, cookie_option);

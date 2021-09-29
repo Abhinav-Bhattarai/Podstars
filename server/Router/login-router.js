@@ -42,7 +42,8 @@ router.post("/", LoginMiddleware, async (req, res) => {
       const cookie_option = {
         httpOnly: true,
         sameSite: 'strict',
-        secure: true
+        secure: true,
+        expires: new Date(Date.now() + (1000 * 60 * 60 * 24))
       }
       res.cookie("authToken", token, cookie_option);
       res.cookie("uid", AuthenticationConfig.uid, cookie_option);

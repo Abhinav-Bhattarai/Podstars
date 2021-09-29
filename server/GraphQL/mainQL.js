@@ -4,7 +4,7 @@ const {
   GraphQLObjectType,
   GraphQLList,
   GraphQLSchema,
-  GraphQLString
+  GraphQLString,
 } = require("graphql");
 import { TrendingModel } from "../Models/trending.js";
 import { cache } from "../server.js";
@@ -22,6 +22,23 @@ import { PodcastSchema, UserSchema } from "./Schema.js";
 const RootQuery = new GraphQLObjectType({
   name: "rootQuery",
   fields: {
+    GetProfileData: {
+      type: UserSchema,
+      args: { userID: { type: GraphQLString } }, 
+      resolve: (_, args, context) => {  
+        const { userID } = args;
+        const { id, uid, authToken } = context;
+        const authStatus = CheckAuthorization(authToken, id, uid);
+        if (authStatus) {
+          if (userID === id) {
+            // this is the profile page for the admin
+          } else {
+            // this is a lookup profile-page
+          }
+        }
+      }
+    },
+
     GetTrendingData: {
       type: new GraphQLList(PodcastSchema),
       resolve: async () => {
@@ -56,7 +73,6 @@ const RootQuery = new GraphQLObjectType({
       type: UserSchema,
       resolve: async (_, args, context) => {
         const { id, authToken, uid } = context.cookies;
-        console.log(id, authToken, uid);
         const authStatus = CheckAuthorization(authToken, id, uid);
         if (authStatus) {
           const ArtistsID = await GetMyFavoraiteArtistsList(id);
