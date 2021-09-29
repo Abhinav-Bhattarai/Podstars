@@ -34,7 +34,7 @@ const Login: NextPage<PageProps> = (props) => {
         };
         const EncryptedConfig = Encrypt(config);
         const { data }: { data: CredData } = await axios.post(
-          "http://localhost:8080/signup",
+          "http://localhost:8080/login",
           {
             Enc: EncryptedConfig,
           },
@@ -66,7 +66,6 @@ const Login: NextPage<PageProps> = (props) => {
   };
 
   useEffect(() => {
-    console.log("router changed");
     if (authStatus === true) {
       router.replace("/home");
     }

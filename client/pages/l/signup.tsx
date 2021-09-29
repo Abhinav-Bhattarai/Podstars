@@ -80,7 +80,6 @@ const Signup: NextPage<PageProps> = (props) => {
   };
 
   useEffect(() => {
-    console.log("router changed");
     if (authStatus === true) {
       router.replace("/home");
     }

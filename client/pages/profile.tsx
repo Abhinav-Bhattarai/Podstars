@@ -22,8 +22,22 @@ const Profile: NextPage<PageProps> = ({ storage, authStatus }) => {
     }
   }, [router, authStatus]);
 
-  let ProfileContent = () => {
-    return (
+  let ProfileContent = (
+    <div
+      style={{
+        width: "90%",
+        height: "80%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Spinner />
+    </div>
+  );
+
+  if (authStatus === true) {
+    ProfileContent = (
       <div
         style={{
           width: "90%",
@@ -33,19 +47,15 @@ const Profile: NextPage<PageProps> = ({ storage, authStatus }) => {
           justifyContent: "center",
         }}
       >
-        <Spinner />
+        
       </div>
     );
-  };
-
-  if (authStatus !== null) {
   }
 
   return (
     <React.Fragment>
       <SidebarContainer>
         <SidebarHeader name="Podstars" />
-
         <NavigatorContainer name="Home">
           <IconContainer>
             <AiFillHome />
@@ -67,12 +77,12 @@ const Profile: NextPage<PageProps> = ({ storage, authStatus }) => {
       <MainContainer>
         <MainViewHeader
           name={
-            (storage && authStatus === true)
+            storage && authStatus === true
               ? storage.userName
               : "Login To Continue"
           }
         />
-        <ProfileContent />
+        { ProfileContent }
       </MainContainer>
     </React.Fragment>
   );

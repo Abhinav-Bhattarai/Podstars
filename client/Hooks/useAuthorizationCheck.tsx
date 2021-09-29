@@ -23,7 +23,6 @@ const useAuthorizationCheck = () => {
   useEffect(() => {
     const CheckAuthorization = async () => {
       const PostConfig = GetPersistantData();
-      console.log(PostConfig);
       if (PostConfig) {
         const { data }: { data: AuthorizationDataType } = await axios.get(
           "http://localhost:8080/checkAuthorization",
@@ -31,7 +30,6 @@ const useAuthorizationCheck = () => {
             withCredentials: true
           }
         );
-        console.log(data);
         if (data.error === false) {
           setAuthStatus(data.authStatus);
         } else {
@@ -44,7 +42,6 @@ const useAuthorizationCheck = () => {
     
     CheckAuthorization();
   }, []);
-  
 
   const ChangeAuthentication = (changeTo: boolean) => {
     setAuthStatus(changeTo);

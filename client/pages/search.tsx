@@ -28,7 +28,7 @@ const Search: NextPage<PageProps> = ({ storage, authStatus }) => {
             <AiOutlineSearch />
           </IconContainer>
         </NavigatorContainer>
-
+c
         <NavigatorContainer name="Liked Podcasts">
           <IconContainer>
             <AiFillHeart />

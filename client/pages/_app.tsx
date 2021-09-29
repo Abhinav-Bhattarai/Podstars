@@ -34,8 +34,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     setStorage(data);
   }, []);
 
-  const ChangeAuthenticationStatus = (changeTo: boolean) =>
+  console.log(auth_status);
+
+  const ChangeAuthenticationStatus = (changeTo: boolean) => {
+    const data = GetPersistantData();
+    setStorage(data);
     ChangeAuthentication(changeTo);
+  };
 
   if (auth_status === null) {
     return <LoadingPage />;
