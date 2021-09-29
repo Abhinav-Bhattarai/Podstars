@@ -11,18 +11,16 @@ import SidebarContainer, {
   NavigatorContainer,
 } from "../Components/Sidebar/sidebar";
 import Spinner from "../Components/UI/spinner";
-import useAuthorizationCheck from "../Hooks/useAuthorizationCheck";
 import { PageProps } from "../Interfaces/interface";
 
-const Profile: NextPage<PageProps> = ({ storage }) => {
-  const { auth_status } = useAuthorizationCheck();
+const Profile: NextPage<PageProps> = ({ storage, authStatus }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (auth_status === false) {
+    if (authStatus === false) {
       router.replace("/l/login");
     }
-  }, [router, auth_status]);
+  }, [router, authStatus]);
 
   let ProfileContent = () => {
     return (
@@ -40,7 +38,7 @@ const Profile: NextPage<PageProps> = ({ storage }) => {
     );
   };
 
-  if (auth_status !== null) {
+  if (authStatus !== null) {
   }
 
   return (
@@ -68,7 +66,11 @@ const Profile: NextPage<PageProps> = ({ storage }) => {
       </SidebarContainer>
       <MainContainer>
         <MainViewHeader
-          name={storage ? storage.userName : "Abhinav Bhattarai"}
+          name={
+            (storage && authStatus === true)
+              ? storage.userName
+              : "Login To Continue"
+          }
         />
         <ProfileContent />
       </MainContainer>

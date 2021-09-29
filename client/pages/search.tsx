@@ -11,7 +11,7 @@ import SidebarContainer, {
 } from "../Components/Sidebar/sidebar";
 import { PageProps } from "../Interfaces/interface";
 
-const Search: NextPage<PageProps> = ({ storage }) => {
+const Search: NextPage<PageProps> = ({ storage, authStatus }) => {
   return (
     <React.Fragment>
       <SidebarContainer>
@@ -38,7 +38,7 @@ const Search: NextPage<PageProps> = ({ storage }) => {
 
       <MainContainer>
         <MainViewHeader
-          name={storage ? storage.userName : "Abhinav Bhattarai"}
+          name={(storage && authStatus === true) ? storage.userName : "Login To Continue"}
         />
       </MainContainer>
     </React.Fragment>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { NextPage } from "next";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import {
   CredentialContainer,
   FormContainer,
@@ -16,9 +17,17 @@ import { PageProps } from "../../Interfaces/interface";
 import { AddLocalStorageData, CredData } from "./signup";
 
 const Login: NextPage<PageProps> = (props) => {
-  const { ChangeAuthentication } = props;
+  const { ChangeAuthentication, authStatus } = props;
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log('router changed');
+    if (authStatus === true) {
+      router.replace('/home');
+    }
+  }, [authStatus, router]);
 
   const Submit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -30,9 +39,13 @@ const Login: NextPage<PageProps> = (props) => {
           Password: password,
         };
         const EncryptedConfig = Encrypt(config);
-        const { data }: { data: CredData } = await axios.post("http://localhost:8080/signup", {
-          Enc: EncryptedConfig,
-        });
+        const { data }: { data: CredData } = await axios.post(
+          "http://localhost:8080/signup",
+          {
+            Enc: EncryptedConfig,
+          },
+          { withCredentials: true }
+        );
         if (data.error === false) {
           if (data.authStatus) {
             AddLocalStorageData(data.userID, data.UserName);

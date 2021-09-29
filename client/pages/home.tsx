@@ -89,7 +89,7 @@ const Home: NextPage<PageProps> = ({ authStatus, storage }) => {
 
       <MainContainer>
         <MainViewHeader
-          name={storage ? storage.userName : "Abhinav Bhattarai"}
+          name={(storage && authStatus === true) ? storage.userName : "Login To Continue"}
         />
         <ScrollView>
           <CardContainerNameType name="Currently Trending" />

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { StorageType } from "../Interfaces/interface";
 
 interface AuthorizationDataType {
@@ -23,6 +23,7 @@ const useAuthorizationCheck = () => {
   useEffect(() => {
     const CheckAuthorization = async () => {
       const PostConfig = GetPersistantData();
+      console.log(PostConfig);
       if (PostConfig) {
         const { data }: { data: AuthorizationDataType } = await axios.get(
           "http://localhost:8080/checkAuthorization",
@@ -30,15 +31,19 @@ const useAuthorizationCheck = () => {
             withCredentials: true
           }
         );
+        console.log(data);
         if (data.error === false) {
           setAuthStatus(data.authStatus);
+        } else {
+          setAuthStatus(false);
         }
+      } else {
+        setAuthStatus(false);
       }
-      setAuthStatus(false);
     };
     
     CheckAuthorization();
-  });
+  }, []);
   
 
   const ChangeAuthentication = (changeTo: boolean) => {

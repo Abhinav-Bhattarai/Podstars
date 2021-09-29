@@ -1,9 +1,25 @@
 import React from "react";
 import styles from "../../styles/maincontainer.module.css";
 import Image from "next/image";
-import { IconContainer } from "../Sidebar/sidebar";
 import { AiOutlineUser } from "react-icons/ai";
 import { useRouter } from "next/dist/client/router";
+import { IconContext } from "react-icons";
+
+const IconContainer: React.FC<{}> = ({ children }) => {
+  return (
+    <IconContext.Provider
+      value={{
+        style: {
+          fontSize: "35px",
+          color: "#fefefe",
+          marginLeft: "1%",
+        },
+      }}
+    >
+      {children}
+    </IconContext.Provider>
+  );
+};
 
 export const MainViewHeader: React.FC<{ source?: string; name: string }> = (
   props

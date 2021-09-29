@@ -11,10 +11,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 10px 0%;
+  padding: 10px 3%;
   border-radius: 5px;
   background-color: #282828;
-  min-width: 20%;
+  min-width: 15%;
   cursor: pointer;
   transition: 0.4s;
 }
@@ -36,7 +36,7 @@
   color: #fefefe;
   font-weight: 600;
   letter-spacing: 1px;
-  margin-left: 3%;
+  margin-left: 7%;
   flex: 3;
   white-space: nowrap;
 }
