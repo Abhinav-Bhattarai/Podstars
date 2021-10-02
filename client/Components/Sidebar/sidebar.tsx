@@ -21,7 +21,7 @@ export const IconContainer: React.FC<{}> = ({ children }) => {
 
 export const NavigatorContainer: React.FC<{ name: string }> = ({
   name,
-  children,
+  children
 }) => {
   return (
     <Link href={`/${name.toLocaleLowerCase()}`} passHref={true}>

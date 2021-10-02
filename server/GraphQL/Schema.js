@@ -6,6 +6,7 @@ const {
   GraphQLString,
   GraphQLList,
   GraphQLInt,
+  GraphQLBoolean
 } = require("graphql");
 
 export const UserSchema = new GraphQLObjectType({
@@ -33,6 +34,8 @@ export const UserSchema = new GraphQLObjectType({
       },
 
       Podcasts: { type: new GraphQLList(GraphQLString) },
+
+      ProfileAuthorization: { type: GraphQLBoolean}
     };
   },
 });

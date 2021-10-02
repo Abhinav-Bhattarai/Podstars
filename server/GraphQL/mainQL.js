@@ -4,7 +4,7 @@ const {
   GraphQLObjectType,
   GraphQLList,
   GraphQLSchema,
-  GraphQLString,
+  GraphQLString
 } = require("graphql");
 import { TrendingModel } from "../Models/trending.js";
 import { cache } from "../server.js";
@@ -22,6 +22,7 @@ import { PodcastSchema, UserSchema } from "./Schema.js";
 const RootQuery = new GraphQLObjectType({
   name: "rootQuery",
   fields: {
+  
     GetProfileData: {
       type: UserSchema,
       args: { userID: { type: GraphQLString } }, 

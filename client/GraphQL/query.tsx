@@ -63,6 +63,7 @@ export const GetProfileInformation = gql`
       Username
       Profile
       Podcasts
+      ProfileAuthorization
     }
   }
 `;

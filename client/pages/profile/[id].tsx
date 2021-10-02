@@ -1,26 +1,36 @@
+import { useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import React, { useEffect } from "react";
 import { AiFillHeart, AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import MainContainer, {
   MainViewHeader,
-} from "../Components/MainContainer/main-container";
+} from "../../Components/MainContainer/main-container";
 import SidebarContainer, {
   IconContainer,
   SidebarHeader,
   NavigatorContainer,
-} from "../Components/Sidebar/sidebar";
-import Spinner from "../Components/UI/spinner";
-import { PageProps } from "../Interfaces/interface";
+} from "../../Components/Sidebar/sidebar";
+import Spinner from "../../Components/UI/spinner";
+import { PageProps } from "../../Interfaces/interface";
+import { GetProfileInformation } from '../../GraphQL/query';
 
 const Profile: NextPage<PageProps> = ({ storage, authStatus }) => {
   const router = useRouter();
+  const { id } = router.query;
+  const GetProfileData = useQuery(GetProfileInformation, {
+    variables: {
+      userID: id
+    },
+
+    onCompleted: (data) => {
+      
+    }
+  });
 
   useEffect(() => {
-    if (authStatus === false) {
-      router.replace("/l/login");
-    }
-  }, [router, authStatus]);
+
+  }, []);
 
   let ProfileContent = (
     <div
@@ -46,9 +56,7 @@ const Profile: NextPage<PageProps> = ({ storage, authStatus }) => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
-        
-      </div>
+      ></div>
     );
   }
 
@@ -82,7 +90,7 @@ const Profile: NextPage<PageProps> = ({ storage, authStatus }) => {
               : "Login To Continue"
           }
         />
-        { ProfileContent }
+        {ProfileContent}
       </MainContainer>
     </React.Fragment>
   );
